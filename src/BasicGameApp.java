@@ -49,7 +49,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     //Declare the objects used in the program
     //These are things that are made up of more than one variable type
-    private BearG BearG;
+    private BearG Bear1;
     public Boulder boulder;
     public Rectangle startHitbox;
     public boolean startGame;
@@ -71,30 +71,30 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     // This section is the setup portion of the program
     // Initialize your variables and construct your program objects here.
     public BasicGameApp() {
-        startGame=false;
+        startGame = false;
         setUpGraphics();
 
         //randomness
         //(int)(Math.random() *range) +offset
         //range 0-9
-        int randx = (int) (Math.random() * 10);
+        //int randx = (int) (Math.random() * 10);
         //0.0001-0.9999
         //0.001 - 9.999
         //0-9
 
         //range to 1-10
-        randx = (int) (Math.random() * 10) + 1;
+        //randx = (int) (Math.random() * 10) + 1;
         // 0.001 - .999
         //0.01 - 9.99
         //0 - 9
         //1 - 10
 
         //range 1-1000
-        randx = (int) (Math.random() * 1000) + 1;
+        //randx = (int) (Math.random() * 1000) + 1;
 
         //todo make a variable called randy and make the random range 1-700
 
-        int randy = (int) (Math.random() * 700) + 1;
+        //int randy = (int) (Math.random() * 700) + 1;
 
 
         //variable and objects
@@ -103,16 +103,15 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         BoulderPic = Toolkit.getDefaultToolkit().getImage("Boulder.png");
         backgroundPic = Toolkit.getDefaultToolkit().getImage("background.png");
 
-        BearG = new BearG(200, 100);
-        BearG.dx = 7;
+        Bear1 = new BearG(200, 100);
+        Bear1.dx = 7;
 
 
-
-        startHitbox = new Rectangle(100,100,100, 100);
+        startHitbox = new Rectangle(100, 100, 100, 100);
         startGame = false;
 
         boulders = new Boulder[5];
-        for(int w = 0; w < boulders.length; w++){
+        for (int w = 0; w < boulders.length; w++) {
             int randw = (int) (Math.random() * 200) + 1;
             int randv = (int) (Math.random() * 300) + 1;
             boulders[w] = new Boulder(randv, randw);
@@ -141,11 +140,11 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     public void moveThings() {
         //calls the move( ) code in the objects
-        if(startGame == true) {
-            BearG.move();
+        if (startGame == true) {
+            Bear1.move();
             crashing();
             //todo: make the asteroids in asteroids move
-            for(int c = 0; c < boulders.length; c++){
+            for (int c = 0; c < boulders.length; c++) {
                 boulders[c].move();
             }
         }
@@ -153,25 +152,21 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     public void crashing() {
         // if the astros crash into eachother
-        if (boulder.hitbox.intersects(boulders[5].hitbox)) {
-            System.out.println("Crash!!");
-            astro.dx = -astro.dx;
-            astro2.dx = -astro2.dx;
-            astro.dy = -astro.dy;
-            astro2.dy = -astro2.dy;
-            astro2.isAlive = false;
-        }
-
-        if (asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isCrashing == false) {
-            System.out.println("Asteroid Collision");
-            asteroid2.height = asteroid2.height + 10;
-            asteroid2.isCrashing = true;
+        if (boulder.hitbox.intersects(Bear1.hitbox)) {
+            System.out.println("Dead...");
+            Bear1.isAlive = false;
         }
 
 
-        if (!asteroid1.hitbox.intersects(asteroid2.hitbox)) {
-            asteroid2.isCrashing = false;
-        }
+        //if (asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isCrashing == false) {
+        // System.out.println("Asteroid Collision");
+        //  asteroid2.height = asteroid2.height + 10;
+        // asteroid2.isCrashing = true;
+
+
+        //if (!asteroid1.hitbox.intersects(asteroid2.hitbox)) {
+        //   asteroid2.isCrashing = false;
+
         //todo: print asteroid crash when ever one of the asteroids in the asteroids array hits eighter astro or astro2
         for (int b = 0; b < boulders.length; b++) {
             if (boulders[b].hitbox.intersects(boulder.hitbox)) {
@@ -180,8 +175,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
                 boulders[b].dy = -boulders[b].dy;
             }
         }
-
     }
+
+
 
     //Pauses or sleeps the computer for the amount specified in milliseconds
     public void pause(int time) {
@@ -240,20 +236,13 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
             //draw the image of the astronaut
-            if (astro2.isAlive == true) {
-                g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
-            }
-            g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
-            if (asteroid1.isAlive == true) {
-                g.drawImage(AsteriodPic, asteroid1.xpos, asteroid1.ypos, asteroid1.width, asteroid1.height, null);
-            }
-            if (asteroid2.isAlive == true) {
-                g.drawImage(AsteriodPic, asteroid2.xpos, asteroid2.ypos, asteroid2.width, asteroid2.height, null);
+            if (Bear1.isAlive == true) {
+                g.drawImage(BearGPic, Bear1.xpos, Bear1.ypos, Bear1.width, Bear1.height, null);
             }
 
-            for (int b = 0; b < asteroids.length; b++) {
-                if (asteroids[b].isAlive == true) {
-                    g.drawImage(AsteriodPic, asteroids[b].xpos, asteroids[b].ypos, asteroids[b].width, asteroids[b].height, null);
+            for (int b = 0; b < boulders.length; b++) {
+                if (boulders[b].isAlive == true) {
+                    g.drawImage(BoulderPic, boulders[b].xpos, boulders[b].ypos, boulders[b].width, boulders[b].height, null);
                 }
             }
 
@@ -285,22 +274,22 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if (e.getKeyCode() == 38) { //up arrow
             System.out.println("Going Up");
             //astro.dy = -Math.abs(astro.dy);
-            astro.isNorth = true;
+            Bear1.isNorth = true;
         }
         if (e.getKeyCode() == 37) { //left arrow
             System.out.println("Going Left");
             //astro.dx = -Math.abs(astro.dy);
-            astro.isEast = true;
+            Bear1.isEast = true;
         }
         if (e.getKeyCode() == 39) { //right arrow
             System.out.println("Going Right");
             //astro.dx = Math.abs(astro.dy);
-            astro.isWest = true;
+            Bear1.isWest = true;
         }
         if (e.getKeyCode() == 40) { //down arrow
             System.out.println("Going Down");
             //astro.dy = Math.abs(astro.dy);
-            astro.isSouth = true;
+            Bear1.isSouth = true;
         }
 
     }
@@ -310,19 +299,19 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         System.out.println("I stopped touching " + e.getKeyCode());
         if (e.getKeyCode() == 38) { // 38 is up arrow
             System.out.println("Not going Up");
-            astro.isNorth = false;
+            Bear1.isNorth = false;
         }
         if (e.getKeyCode() == 37) { // 37 is left arrow
             System.out.println("Not going Left");
-            astro.isEast = false;
+            Bear1.isEast = false;
         }
         if (e.getKeyCode() == 39) { // 39 is right arrow
             System.out.println("Not going Right");
-            astro.isWest = false;
+            Bear1.isWest = false;
         }
         if (e.getKeyCode() == 40) { // 40 is down arrow
             System.out.println("Not going Down");
-            astro.isSouth = false;
+            Bear1.isSouth = false;
 
         }
 
@@ -343,20 +332,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             startGame = true;
             System.out.println("Start Game");
         }
-        for (int b = 0; b < asteroids.length; b++) {
-            if (pointHitbox.intersects(asteroids[b].hitbox)) {
-                asteroids[b].isAlive = false;
+        for (int b = 0; b < boulders.length; b++) {
+            if (pointHitbox.intersects(boulders[b].hitbox)) {
+                boulders[b].isAlive = false;
                 System.out.println("Asteroid has been destroyed");
-            }
-
-            if (pointHitbox.intersects(asteroid1.hitbox)) {
-
-                asteroid1.isAlive = false;
-                System.out.println("Asteroid 1 has been destroyed");
-            }
-            if (pointHitbox.intersects(asteroid2.hitbox)) {
-                asteroid2.isAlive = false;
-                System.out.println("Asteroid 2 has been destroyed");
             }
 
         }
@@ -378,5 +357,4 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         System.out.println("Mouse Exited the Screen");
     }
 
-
-}
+    }
