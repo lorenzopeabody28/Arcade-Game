@@ -44,6 +44,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public BufferStrategy bufferStrategy;
     public Image BearGPic;
     public Image backgroundPic;
+    public Image BoulderPic;
 
 
     //Declare the objects used in the program
@@ -105,18 +106,16 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         BearG = new BearG(200, 100);
         BearG.dx = 7;
 
-        asteroid1 = new Asteroid(467, randy);
-        asteroid1.dx = -asteroid1.dx;
-        asteroid2 = new Asteroid(randx, 267);
+
 
         startHitbox = new Rectangle(100,100,100, 100);
         startGame = false;
 
-        asteroids = new Asteroid[5];
-        for(int w = 0; w < asteroids.length; w++){
-            int randw = (int) (Math.random() * 700) + 1;
-            int randv = (int) (Math.random() * 1000) + 1;
-            asteroids[w] = new Asteroid(randv, randw);
+        boulders = new Boulder[5];
+        for(int w = 0; w < boulders.length; w++){
+            int randw = (int) (Math.random() * 200) + 1;
+            int randv = (int) (Math.random() * 300) + 1;
+            boulders[w] = new Boulder(randv, randw);
         }
     }// BasicGameApp()
 
@@ -143,21 +142,18 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public void moveThings() {
         //calls the move( ) code in the objects
         if(startGame == true) {
-            astro.move();
-            astro2.move();
-            asteroid1.move();
-            asteroid2.move();
+            BearG.move();
             crashing();
             //todo: make the asteroids in asteroids move
-            for(int c = 0; c < asteroids.length; c++){
-                asteroids[c].move();
+            for(int c = 0; c < boulders.length; c++){
+                boulders[c].move();
             }
         }
     }
 
     public void crashing() {
         // if the astros crash into eachother
-        if (astro.hitbox.intersects(astro2.hitbox)) {
+        if (boulder.hitbox.intersects(boulders[5].hitbox)) {
             System.out.println("Crash!!");
             astro.dx = -astro.dx;
             astro2.dx = -astro2.dx;
@@ -177,9 +173,11 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             asteroid2.isCrashing = false;
         }
         //todo: print asteroid crash when ever one of the asteroids in the asteroids array hits eighter astro or astro2
-        for (int b = 0; b < asteroids.length; b++) {
-            if (asteroids[b].hitbox.intersects(astro.hitbox)) {
+        for (int b = 0; b < boulders.length; b++) {
+            if (boulders[b].hitbox.intersects(boulder.hitbox)) {
                 System.out.println("Asteroid Collision!");
+                boulders[b].dx = -boulders[b].dx;
+                boulders[b].dy = -boulders[b].dy;
             }
         }
 
