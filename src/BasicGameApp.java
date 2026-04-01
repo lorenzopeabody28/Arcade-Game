@@ -45,6 +45,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Image BearGPic;
     public Image backgroundPic;
     public Image BoulderPic;
+    public Image MonkeyPic;
 
 
     //Declare the objects used in the program
@@ -55,6 +56,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public boolean startGame;
     //make a new object of Astronaut called astro2
     public Boulder[] boulders;
+    public Monkey[] monkeys;
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -116,6 +118,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             int randv = (int) (Math.random() * 300) + 1;
             boulders[w] = new Boulder(randv, randw);
         }
+        monkeys = new Monkey[7];
+        for (int w = 0; w < monkeys.length; w++) {
+            int randw = (int) (Math.random() * 650) + 1;
+            int randv = (int) (Math.random() * 950) + 1;
+            monkeys[w] = new Monkey(randv, randw);
+        }
     }// BasicGameApp()
 
 
@@ -146,6 +154,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             //todo: make the asteroids in asteroids move
             for (int c = 0; c < boulders.length; c++) {
                 boulders[c].move();
+            }
+            for (int c = 0; c < monkeys.length; c++) {
+                monkeys[c].move();
             }
         }
     }
@@ -245,16 +256,27 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
                     g.drawImage(BoulderPic, boulders[b].xpos, boulders[b].ypos, boulders[b].width, boulders[b].height, null);
                 }
             }
+            for (int b = 0; b < monkeys.length; b++) {
+                if (monkeys[b].isAlive == true) {
+                    g.drawImage(MonkeyPic, monkeys[b].xpos, monkeys[b].ypos, monkeys[b].width, monkeys[b].height, null);
+                }
+            }
+
 
             //g.drawRect(astro.hitbox`````.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
             //end of drawing things
-            g.dispose();
+
 
 
         }
-        g.setColor(Color.GREEN);
-        g.fillRect(100, 100, 100, 100);
-        bufferStrategy.show();
+        if (startGame == false) {
+            g.setColor(Color.GREEN);
+            g.fillRect(100, 100, 100, 100);
+        }
+            bufferStrategy.show();
+
+
+        g.dispose();
     }
 
     //step 3: add methods
