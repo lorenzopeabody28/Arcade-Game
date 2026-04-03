@@ -33,10 +33,10 @@ public class BearG {
     public BearG(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx = 5;
-        dy = 5;
-        width = 60;
-        height = 60;
+        dx = 7;
+        dy = 7;
+        width = 80;
+        height = 80;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
         isControlable = false;
@@ -76,16 +76,16 @@ public class BearG {
         }
 
         if (xpos < 0) { //bounce off the left wall
-            dx = -dx;
+            dx = 0;
         }
         if (xpos > 1000-width) { //bounce off right wall
-            dx = -dx;
+            dx = 0;
         }
         if (ypos < 0) {    //bounce off top
-            dy = -dy;
+            dy = 0;
         }
         if (ypos > 700-height) { //bounce off bottom
-            dy = -dy;
+            dy = 0;
         }
         xpos = xpos + dx;
         ypos = ypos + dy;

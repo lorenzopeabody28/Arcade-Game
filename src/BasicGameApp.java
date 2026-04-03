@@ -106,17 +106,17 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         MonkeyPic = Toolkit.getDefaultToolkit().getImage("Monkey.png");
         backgroundPic = Toolkit.getDefaultToolkit().getImage("background.png");
 
-        Bear1 = new BearG(200, 100);
+        Bear1 = new BearG(920, 620);
         Bear1.dx = 7;
 
 
         startHitbox = new Rectangle(100, 100, 100, 100);
         startGame = false;
-        boulder = new Boulder(500,300);
+
         boulders = new Boulder[5];
         for (int w = 0; w < boulders.length; w++) {
-            int randw = (int) (Math.random() * 200) + 1;
-            int randv = (int) (Math.random() * 300) + 1;
+            int randw = (int) (Math.random() * 200) + 50;
+            int randv = (int) (Math.random() * 300) + 50;
             boulders[w] = new Boulder(randv, randw);
         }
         monkeys = new Monkey[7];
@@ -164,12 +164,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     public void crashing() {
         // if the astros crash into eachother
-        //for (int b = 0; b < boulders.length; b++){
-        //if (boulders[b].hitbox.intersects(Bear1.hitbox)) {
-        //    System.out.println("Dead...");
-        //    Bear1.isAlive = false;
+      //  for (int b = 0; b < boulders.length; b++){
+       //if (boulders[b].hitbox.intersects(Bear1.hitbox)) {
+         //  System.out.println("Dead...");
+         //  Bear1.isAlive = false;
         //}
-       // }
+       //}
 
 
         //if (asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isCrashing == false) {

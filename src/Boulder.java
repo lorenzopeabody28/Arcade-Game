@@ -25,8 +25,8 @@ public class Boulder {
     public Boulder(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        int randw = (int) (Math.random() * 10) + 1;
-        int randv = (int) (Math.random() * 10) + 1;
+        int randw = (int) (Math.random() * 5) + 1;
+        int randv = (int) (Math.random() * 4) + 1;
         int rand1 = (int) (Math.random() * 2) + 1;
         if (rand1 == 1) {
             dx = -randw;
@@ -41,8 +41,8 @@ public class Boulder {
         else {
             dy = randv;
         }
-        width = 160;
-        height = 160;
+        width = 100;
+        height = 100;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
         isCrashing = false;
