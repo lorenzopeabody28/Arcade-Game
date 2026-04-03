@@ -51,8 +51,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     //Declare the objects used in the program
     //These are things that are made up of more than one variable type
     private BearG Bear1;
-    public Boulder boulder;
     public Rectangle startHitbox;
+    public Boulder boulder;
     public boolean startGame;
     //make a new object of Astronaut called astro2
     public Boulder[] boulders;
@@ -103,6 +103,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         //create (construct) the objects needed for the game and load up
         BearGPic = Toolkit.getDefaultToolkit().getImage("BearG.png");//load the picture
         BoulderPic = Toolkit.getDefaultToolkit().getImage("Boulder.png");
+        MonkeyPic = Toolkit.getDefaultToolkit().getImage("Monkey.png");
         backgroundPic = Toolkit.getDefaultToolkit().getImage("background.png");
 
         Bear1 = new BearG(200, 100);
@@ -111,7 +112,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
         startHitbox = new Rectangle(100, 100, 100, 100);
         startGame = false;
-
+        boulder = new Boulder(500,300);
         boulders = new Boulder[5];
         for (int w = 0; w < boulders.length; w++) {
             int randw = (int) (Math.random() * 200) + 1;
@@ -163,10 +164,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     public void crashing() {
         // if the astros crash into eachother
-        if (boulder.hitbox.intersects(Bear1.hitbox)) {
-            System.out.println("Dead...");
-            Bear1.isAlive = false;
-        }
+        //for (int b = 0; b < boulders.length; b++){
+        //if (boulders[b].hitbox.intersects(Bear1.hitbox)) {
+        //    System.out.println("Dead...");
+        //    Bear1.isAlive = false;
+        //}
+       // }
 
 
         //if (asteroid1.hitbox.intersects(asteroid2.hitbox) && asteroid2.isCrashing == false) {
@@ -179,13 +182,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         //   asteroid2.isCrashing = false;
 
         //todo: print asteroid crash when ever one of the asteroids in the asteroids array hits eighter astro or astro2
-        for (int b = 0; b < boulders.length; b++) {
-            if (boulders[b].hitbox.intersects(boulder.hitbox)) {
-                System.out.println("Asteroid Collision!");
-                boulders[b].dx = -boulders[b].dx;
-                boulders[b].dy = -boulders[b].dy;
-            }
-        }
+
     }
 
 
@@ -350,7 +347,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public void mousePressed(MouseEvent e) {
         System.out.println(e.getPoint());
         Rectangle pointHitbox = new Rectangle(e.getX(), e.getY(), 1, 1);
-        if (pointHitbox.intersects(pointHitbox)) {
+        if (pointHitbox.intersects(startHitbox)) {
             startGame = true;
             System.out.println("Start Game");
         }
