@@ -49,8 +49,7 @@ public class BearG {
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
-        xpos = xpos + dx;
-        ypos = ypos + dy;
+
 
         if(isNorth == true && isSouth == false) {
             dy = -4;
@@ -90,7 +89,11 @@ public class BearG {
             dy = 0;
         }
 
+        xpos = xpos + dx;
+        ypos = ypos + dy;
+
         hitbox = new Rectangle(xpos, ypos, width, height);
+
 
 
         //todo: bounce off all walls
