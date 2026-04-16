@@ -106,7 +106,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         MonkeyPic = Toolkit.getDefaultToolkit().getImage("Monkey.png");
         backgroundPic = Toolkit.getDefaultToolkit().getImage("background.png");
 
-        Bear1 = new BearG(920, 620);
+        Bear1 = new BearG(900, 600);
         Bear1.dx = 7;
 
 
@@ -298,12 +298,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if (e.getKeyCode() == 37) { //left arrow
             System.out.println("Going Left");
             //astro.dx = -Math.abs(astro.dy);
-            Bear1.isEast = true;
+            Bear1.isWest = true;
         }
         if (e.getKeyCode() == 39) { //right arrow
             System.out.println("Going Right");
             //astro.dx = Math.abs(astro.dy);
-            Bear1.isWest = true;
+            Bear1.isEast= true;
         }
         if (e.getKeyCode() == 40) { //down arrow
             System.out.println("Going Down");

@@ -58,13 +58,13 @@ public class BearG {
             dy = 0;
         }
         if (isEast == true && isWest == false){
-            dx = -4;
+            dx = 4;
         }
         if (isEast == true && isWest == true){
             dx = 0;
         }
         if (isWest == true && isEast == false){
-            dx = 4;
+            dx = -4;
         }
         if (isWest == false && isEast == false){
             dx = 0;
@@ -73,24 +73,29 @@ public class BearG {
             dy = 4;
         }
         if (isSouth == false && isNorth == false){
-            dx = 0;
-        }
-
-        if (xpos < 0) { //bounce off the left wall
-            dx = 0;
-        }
-        if (xpos > 1000-width) { //bounce off right wall
-            dx = 0;
-        }
-        if (ypos < 0) {    //bounce off top
-            dy = 0;
-        }
-        if (ypos > 700-height) { //bounce off bottom
             dy = 0;
         }
 
         xpos = xpos + dx;
         ypos = ypos + dy;
+
+        if (xpos < 0) { //bounce off the left wall
+            xpos = 0;
+            dx = 0;
+        }
+        if (xpos > 1000-width) { //bounce off right wall
+            xpos = 1000 - width;
+            dx = 0;
+        }
+        if (ypos < 0) {    //bounce off top
+            ypos = 0;
+            dy = 0;
+        }
+        if (ypos > 700-height) { //bounce off bottom
+            ypos = 700 - height;
+            dy = 0;
+        }
+
 
         hitbox = new Rectangle(xpos, ypos, width, height);
 
