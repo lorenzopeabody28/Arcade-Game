@@ -107,7 +107,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         backgroundPic = Toolkit.getDefaultToolkit().getImage("background.png");
 
         Bear1 = new BearG(900, 600);
-        Bear1.dx = 7;
+        Bear1.dx = 0;
 
 
         startHitbox = new Rectangle(100, 100, 100, 100);
@@ -164,11 +164,19 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     public void crashing() {
         // if the astros crash into eachother
-      //  for (int b = 0; b < boulders.length; b++){
-       //if (boulders[b].hitbox.intersects(Bear1.hitbox)) {
-         //  System.out.println("Dead...");
-         //  Bear1.isAlive = false;
-        //}
+        for (int b = 0; b < boulders.length; b++) {
+            if (boulders[b].hitbox.intersects(Bear1.hitbox)) {
+                System.out.println("Dead...");
+                Bear1.isAlive = false;
+            }
+        }
+        for (int b = 0; b < monkeys.length; b++) {
+            if (Bear1.hitbox.intersects(monkeys[b].hitbox)) {
+                System.out.println("Dead...");
+                monkeys[b].dx = -monkeys[b].dx;
+                monkeys[b].dy = -monkeys[b].dy;
+            }
+        }
        //}
 
 
@@ -290,22 +298,22 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
         System.out.println(e.getKeyCode());
 
-        if (e.getKeyCode() == 38) { //up arrow
+        if (e.getKeyCode() == 87) { //up arrow
             System.out.println("Going Up");
             //astro.dy = -Math.abs(astro.dy);
             Bear1.isNorth = true;
         }
-        if (e.getKeyCode() == 37) { //left arrow
+        if (e.getKeyCode() == 65) { //left arrow
             System.out.println("Going Left");
             //astro.dx = -Math.abs(astro.dy);
             Bear1.isWest = true;
         }
-        if (e.getKeyCode() == 39) { //right arrow
+        if (e.getKeyCode() == 68) { //right arrow
             System.out.println("Going Right");
             //astro.dx = Math.abs(astro.dy);
             Bear1.isEast= true;
         }
-        if (e.getKeyCode() == 40) { //down arrow
+        if (e.getKeyCode() == 83) { //down arrow
             System.out.println("Going Down");
             //astro.dy = Math.abs(astro.dy);
             Bear1.isSouth = true;
@@ -316,19 +324,19 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     @Override
     public void keyReleased(KeyEvent e) {
         System.out.println("I stopped touching " + e.getKeyCode());
-        if (e.getKeyCode() == 38) { // 38 is up arrow
+        if (e.getKeyCode() == 87) { // 38 is up arrow
             System.out.println("Not going Up");
             Bear1.isNorth = false;
         }
-        if (e.getKeyCode() == 37) { // 37 is left arrow
+        if (e.getKeyCode() == 65) { // 37 is left arrow
             System.out.println("Not going Left");
             Bear1.isEast = false;
         }
-        if (e.getKeyCode() == 39) { // 39 is right arrow
+        if (e.getKeyCode() == 68) { // 39 is right arrow
             System.out.println("Not going Right");
             Bear1.isWest = false;
         }
-        if (e.getKeyCode() == 40) { // 40 is down arrow
+        if (e.getKeyCode() == 83) { // 40 is down arrow
             System.out.println("Not going Down");
             Bear1.isSouth = false;
 
@@ -351,9 +359,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             startGame = true;
             System.out.println("Start Game");
         }
-        for (int b = 0; b < boulders.length; b++) {
-            if (pointHitbox.intersects(boulders[b].hitbox)) {
-                boulders[b].isAlive = false;
+        for (int b = 0; b < monkeys.length; b++) {
+            if (pointHitbox.intersects(monkeys[b].hitbox)) {
+                monkeys[b].isAlive = false;
                 System.out.println("Asteroid has been destroyed");
             }
 
