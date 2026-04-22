@@ -44,6 +44,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public BufferStrategy bufferStrategy;
     public Image BearGPic;
     public Image backgroundPic;
+    public Image gameOverPic;
+    public Image winScreenPic;
     public Image BoulderPic;
     public Image MonkeyPic;
 
@@ -57,6 +59,13 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     //make a new object of Astronaut called astro2
     public Boulder[] boulders;
     public Monkey[] monkeys;
+
+    public boolean gameWon;
+    public int frameCount;
+
+    public Rectangle playAgainHitbox;
+    public Rectangle noHitbox;
+
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -74,6 +83,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     // Initialize your variables and construct your program objects here.
     public BasicGameApp() {
         startGame = false;
+        gameWon = false;
+        frameCount = 0;
+
+        playAgainHitbox = new Rectangle(300, 450, 150, 60);
+        noHitbox = new Rectangle(550, 450, 150, 60);
+
         setUpGraphics();
 
         //randomness
@@ -105,6 +120,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         BoulderPic = Toolkit.getDefaultToolkit().getImage("Boulder.png");
         MonkeyPic = Toolkit.getDefaultToolkit().getImage("Monkey.png");
         backgroundPic = Toolkit.getDefaultToolkit().getImage("background.png");
+        gameOverPic = Toolkit.getDefaultToolkit().getImage("gameOver.jpg");
+        winScreenPic = Toolkit.getDefaultToolkit().getImage("winScreen.jpg");
 
         Bear1 = new BearG(900, 600);
         Bear1.dx = 0;
@@ -159,6 +176,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             for (int c = 0; c < monkeys.length; c++) {
                 monkeys[c].move();
             }
+        }
+        frameCount++;
+        if (frameCount >= 1000 && Bear1.isAlive == true) {
+            gameWon = true;
         }
     }
 
@@ -266,6 +287,19 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
                     g.drawImage(MonkeyPic, monkeys[b].xpos, monkeys[b].ypos, monkeys[b].width, monkeys[b].height, null);
                 }
             }
+            if (Bear1.isAlive ==false) {
+                g.drawImage(gameOverPic, 0, 0, WIDTH, HEIGHT, null);
+            }
+            int secondsLeft = 20 - (frameCount / 50);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.BOLD, 30));
+            g.drawString("Time: " + secondsLeft, 10, 30);
+
+            if (gameWon == true){
+                g.drawImage(winScreenPic, 0, 0, WIDTH, HEIGHT, null);
+            }
+
+
 
 
             //g.drawRect(astro.hitbox`````.x, astro.hitbox.y, astro.hitbox.width, astro.hitbox.height);
@@ -365,6 +399,31 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
                 System.out.println("Asteroid has been destroyed");
             }
 
+        }
+        if (Bear1.isAlive == false) {
+            if (pointHitbox.intersects(playAgainHitbox)){
+                startGame = true;
+                Bear1 = new BearG(900,600);
+                frameCount = 0;
+                for (int w = 0; w < boulders.length; w++) {
+                    boulders[w] = new Boulder((int) (Math.random() * 300) + 50, (int) (Math.random() * 200) + 50);
+                }
+                for (int w = 0; w < monkeys.length; w++) {
+                    monkeys[w] = new Monkey((int) (Math.random() * 950) + 50, (int) (Math.random() * 650) + 50);
+                }
+            }
+            if (pointHitbox.intersects(noHitbox)){
+                startGame = false;
+                Bear1 = new BearG(900,600);
+                Bear1.isAlive = true;
+                frameCount = 0;
+                for (int w = 0; w < boulders.length; w++) {
+                    boulders[w] = new Boulder((int) (Math.random() * 300) + 50, (int) (Math.random() * 200) + 50);
+                }
+                for (int w = 0; w < monkeys.length; w++) {
+                    monkeys[w] = new Monkey((int) (Math.random() * 950) + 50, (int) (Math.random() * 650) + 50);
+                }
+            }
         }
     }
 
