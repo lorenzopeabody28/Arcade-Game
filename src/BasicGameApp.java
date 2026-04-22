@@ -65,6 +65,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     public Rectangle playAgainHitbox;
     public Rectangle noHitbox;
+    public Rectangle wPlayAgainHitbox;
 
 
     // Main method definition
@@ -88,6 +89,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
         playAgainHitbox = new Rectangle(300, 450, 150, 60);
         noHitbox = new Rectangle(550, 450, 150, 60);
+        wPlayAgainHitbox = new Rectangle(400, 150, 190,210);
 
         setUpGraphics();
 
@@ -196,6 +198,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
                 System.out.println("Dead...");
                 monkeys[b].dx = -monkeys[b].dx;
                 monkeys[b].dy = -monkeys[b].dy;
+                //frameCount = +50;
             }
         }
        //}
@@ -416,6 +419,19 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
                 startGame = false;
                 Bear1 = new BearG(900,600);
                 Bear1.isAlive = true;
+                frameCount = 0;
+                for (int w = 0; w < boulders.length; w++) {
+                    boulders[w] = new Boulder((int) (Math.random() * 300) + 50, (int) (Math.random() * 200) + 50);
+                }
+                for (int w = 0; w < monkeys.length; w++) {
+                    monkeys[w] = new Monkey((int) (Math.random() * 950) + 50, (int) (Math.random() * 650) + 50);
+                }
+            }
+        }
+        if(Bear1.isAlive == false){
+            if (pointHitbox.intersects(wPlayAgainHitbox)) {
+                startGame = true;
+                Bear1 = new BearG(900, 600);
                 frameCount = 0;
                 for (int w = 0; w < boulders.length; w++) {
                     boulders[w] = new Boulder((int) (Math.random() * 300) + 50, (int) (Math.random() * 200) + 50);
