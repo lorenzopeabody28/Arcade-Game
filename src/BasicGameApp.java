@@ -189,13 +189,13 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         // if the astros crash into eachother
         for (int b = 0; b < boulders.length; b++) {
             if (boulders[b].hitbox.intersects(Bear1.hitbox)) {
-                System.out.println("Dead...");
+               // System.out.println("Dead...");
                 Bear1.isAlive = false;
             }
         }
         for (int b = 0; b < monkeys.length; b++) {
             if (Bear1.hitbox.intersects(monkeys[b].hitbox)) {
-                System.out.println("Dead...");
+               // System.out.println("Dead...");
                 monkeys[b].dx = -monkeys[b].dx;
                 monkeys[b].dy = -monkeys[b].dy;
                 //frameCount = +50;
@@ -428,10 +428,14 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
                 }
             }
         }
-        if(Bear1.isAlive == false){
-            if (pointHitbox.intersects(wPlayAgainHitbox)) {
+
+        if(gameWon == true){
+            if (pointHitbox.intersects(wPlayAgainHitbox)){
+                System.out.println("clickb won");
+
                 startGame = true;
-                Bear1 = new BearG(900, 600);
+                gameWon = false;
+                Bear1 = new BearG(900,600);
                 frameCount = 0;
                 for (int w = 0; w < boulders.length; w++) {
                     boulders[w] = new Boulder((int) (Math.random() * 300) + 50, (int) (Math.random() * 200) + 50);
