@@ -364,7 +364,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if (e.getKeyCode() == 87) { // 38 is up arrow
             System.out.println("Not going Up");
             Bear1.isNorth = false;
-        }
+        } 
         if (e.getKeyCode() == 65) { // 37 is left arrow
             System.out.println("Not going Left");
             Bear1.isEast = false;
